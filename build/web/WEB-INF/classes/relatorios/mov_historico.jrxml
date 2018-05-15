@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mov_historico" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="026b4ca8-696e-4537-91b2-17545e424155">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idMov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="complementoSQL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT l.titulo, mhl.identificador, mhl.status, mhl.data_devolucao, mhl.observacao, mhl.multa
+FROM livro l, pessoa p, movimentacao m, movimentacao_has_livro mhl
+WHERE l.id = mhl.livro AND mhl.movimentacao = $P{idMov} AND p.id = m.pessoa AND m.id = mhl.movimentacao$P!{complementoSQL}
+ORDER BY mhl.identificador]]>
+	</queryString>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="identificador" class="java.lang.Integer"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="data_devolucao" class="java.sql.Date"/>
+	<field name="observacao" class="java.lang.String"/>
+	<field name="multa" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="0" width="175" height="20" uuid="fb065ef5-a8f5-4760-8643-c44b91708212"/>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="38" y="20" width="175" height="20" uuid="e9c86f48-2516-4507-8632-5395db2654fd"/>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="38" height="20" uuid="c5e25d06-a838-4c44-97fd-e6a8e907db28"/>
+				<text><![CDATA[ID Livro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="38" height="20" uuid="5bdfd7a8-fdf5-4d77-95a5-1a3d6ece2196"/>
+				<textFieldExpression><![CDATA[$F{identificador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="213" y="0" width="100" height="20" uuid="dbe82385-bf80-4840-a1d6-a2594a6471e5"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="213" y="20" width="100" height="20" uuid="8b5e41e5-32b9-4f77-8e85-0cd2dd243f18"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="0" width="100" height="20" uuid="9327220e-3fee-4755-bd94-ab44e6534f28"/>
+				<text><![CDATA[Data de Devolução]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="313" y="20" width="100" height="20" uuid="afc20a67-3c4b-4d74-8891-dee8844df6a4"/>
+				<textFieldExpression><![CDATA[$F{data_devolucao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="38" y="40" width="275" height="20" uuid="b85fac79-b614-433d-9b33-8382508d72a0"/>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="38" y="60" width="275" height="20" uuid="16e64f9e-6dd4-4a72-99f2-d76df8d9427b"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="40" width="100" height="20" uuid="842c4712-5696-433d-af89-395c17deff50"/>
+				<text><![CDATA[Multa Aplicada]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="313" y="60" width="100" height="20" uuid="a0eea81a-4f4e-4b8e-929d-af6117904460"/>
+				<textFieldExpression><![CDATA[$F{multa}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="81" width="555" height="2" uuid="01b3afa0-f88e-4871-ad9f-6c3fe15ad471"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

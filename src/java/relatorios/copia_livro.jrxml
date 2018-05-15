@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="copia_livro" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="18bee10e-d549-4e41-95a7-0b0e3b11879b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idLivro" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="complementoSQL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cl.identificador, cl.estado, cl.observacao
+FROM copia_livro cl, livro l
+WHERE cl.livro = l.id AND cl.livro = $P{idLivro} $P!{complementoSQL}
+ORDER BY cl.identificador]]>
+	</queryString>
+	<field name="identificador" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="observacao" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="62" height="20" uuid="ef26db6d-ff75-4994-9282-19bef9eaebfd"/>
+				<text><![CDATA[Identificador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="0" width="87" height="20" uuid="b9299917-e53a-40bb-a633-3558053c4235"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="100" height="20" uuid="14c093c2-b13d-4f1b-8ec1-a579f5e114f7"/>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="62" height="20" uuid="284da839-b6e2-4aa8-b2d2-3f978dc43284"/>
+				<textFieldExpression><![CDATA[$F{identificador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="0" width="87" height="20" uuid="ea588f1d-34ed-440e-a35a-ea996d80a9b9"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="0" width="100" height="20" uuid="7fbebc2a-1638-438f-b724-5b17e6d2255a"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

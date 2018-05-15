@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelAtraso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad8af32d-2ae9-49d7-8095-990a1b1e9e89">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Google Drive\\Univates\\2016 B\\Programação para Internet\\Projeto\\bibliomaster\\src\\java\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT m.id, m.status, m.data_retirada, m.data_devolver, m.observacao, m.valor, p.nome ||' '|| p.sobrenome AS "pessoa"
+FROM movimentacao m, pessoa p
+WHERE p.id = m.pessoa AND m.status = 'Retirado' AND m.data_devolver < CURRENT_DATE]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="data_retirada" class="java.sql.Date"/>
+	<field name="data_devolver" class="java.sql.Date"/>
+	<field name="observacao" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="pessoa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="57bca9df-5e33-4549-9b69-ce1b96fddd40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[Relatório de Atrasados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="82" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="29" height="20" uuid="468700f8-69fc-47fc-b572-96c13489197d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="20" width="100" height="20" uuid="99f9cfb3-dea7-41bb-919e-6154e7695ecb"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="29" y="60" width="100" height="20" uuid="32c2e787-b4b2-40f6-ad82-8f681fe7e888"/>
+				<textFieldExpression><![CDATA[$F{data_retirada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="227" y="61" width="100" height="20" uuid="907f3c78-de1d-4ee7-a36a-8e526f2fd2a8"/>
+				<textFieldExpression><![CDATA[$F{data_devolver}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="20" width="228" height="20" uuid="ae30e9f1-2c0d-4a5e-836b-874ddcd6649a"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="20" width="198" height="20" uuid="e5b93ae1-6c10-4783-b339-0356a885bb52"/>
+				<textFieldExpression><![CDATA[$F{pessoa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="29" height="20" uuid="f537fa91-97ac-446d-9a9a-80b2e447444b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="20" uuid="d8229ec5-1cba-480e-8d70-565c7b81b8fb"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="41" width="100" height="20" uuid="feb59852-7f62-4a9f-bd4e-9dd9b14a640b"/>
+				<text><![CDATA[Data de retirada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="41" width="100" height="20" uuid="fa3dd558-8d15-4ed7-bd0d-470bc39b8eeb"/>
+				<text><![CDATA[Data para devolver]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="0" width="228" height="20" uuid="2368997a-cd64-4a3a-b373-78ed46c3fc79"/>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="0" width="198" height="20" uuid="e310f255-2a9e-4ec9-9a99-7a150e445329"/>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="60" width="100" height="20" uuid="8983b870-9a61-4a84-adc2-45a177bdfbfe"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="40" width="100" height="20" uuid="6fa53b1d-5102-4b95-b1ae-b17539381b43"/>
+				<text><![CDATA[Valor Retirada]]></text>
+			</staticText>
+		</band>
+		<band height="53">
+			<subreport>
+				<reportElement x="29" y="0" width="526" height="53" uuid="ee70844f-4fa5-4ca3-95b4-56d855955f59"/>
+				<subreportParameter name="idMovimentacao">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "copias_atraso.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="3">
+			<line>
+				<reportElement x="29" y="0" width="526" height="1" uuid="4ea77b4f-59c3-437c-bb06-b5319d9d2292"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

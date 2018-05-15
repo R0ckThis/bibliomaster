@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relLivro" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a7666ca-456b-4901-a48a-ac958ef80c86">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Google Drive\\Univates\\2016 B\\Programação para Internet\\Projeto\\bibliomaster\\src\\java\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="complementoSQL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT l.id, l.titulo, l.publicacao, i.sigla, e.nome
+FROM livro l, idioma i, editora e, copia_livro cl
+WHERE l.idioma = i.id AND l.editora = e.id AND l.id = cl.livro $P!{complementoSQL}
+ORDER BY l.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="publicacao" class="java.sql.Date"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="45" uuid="8fbe8b93-dcfe-455c-911c-df9a8ecf7a53"/>
+				<textElement textAlignment="Center">
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[Relatório de Livros]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="25" height="20" uuid="158c6fc6-ae2f-449a-b1b5-73f3738d2355"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="25" height="20" uuid="d43a406a-75d9-4e9b-a963-06207b44ba4e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="0" width="100" height="20" uuid="8cc1ba0d-f7d4-4338-836b-89d10d69e31d"/>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="25" y="20" width="100" height="20" uuid="8809f404-d690-4f68-b7ee-a0b3493d42d3"/>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="125" y="0" width="100" height="20" uuid="a83bd9c8-de22-4542-8778-e5d84486afe4"/>
+				<text><![CDATA[Publicação]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="125" y="20" width="100" height="20" uuid="49e31cbd-778f-4739-826f-d173a42919f5"/>
+				<textFieldExpression><![CDATA[$F{publicacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="0" width="36" height="20" uuid="7ac46616-9e72-4318-8f3a-9b528c519386"/>
+				<text><![CDATA[Idioma]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="20" width="36" height="20" uuid="5c90657e-8290-48e2-a421-a7facfeb6477"/>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="0" width="100" height="20" uuid="2ea4ceb0-c5a0-4e6b-83e4-a1e480ec1f88"/>
+				<text><![CDATA[Editora]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="284" y="20" width="100" height="20" uuid="e9f003f6-459e-4f9e-9e9f-edb82af22966"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="384" y="20" width="100" height="20" uuid="39c8d510-2870-4f6c-9f9d-f1897e1c6912"/>
+				<subreportParameter name="idLivro">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "autor.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="384" y="0" width="100" height="20" uuid="46cad2a2-e22a-4936-ba43-7235f6e4ae24"/>
+				<text><![CDATA[Autor(es)]]></text>
+			</staticText>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="10" y="0" width="390" height="50" uuid="4a0915d2-30ae-46e3-9786-1b763af975c6"/>
+				<subreportParameter name="complementoSQL">
+					<subreportParameterExpression><![CDATA[$P{complementoSQL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idLivro">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "copia_livro.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="4">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="eeda9f71-171f-4420-b15a-2f44bc33cd9f"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
